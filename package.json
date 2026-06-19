@@ -58,7 +58,7 @@
         "fs-extra": "^10.0.0",
         "fs-walk": "0.0.2",
         "html-validator": "^5.1.17",
-        "htmlencode": "0.0.4",
+        "htmlencode": "0.0.5",
         "lockfile-lint": "^4.6.2",
         "mocha": "^8.4.0",
         "mockdate": "^3.0.5",
@@ -70,7 +70,12 @@
         "xo": "^0.39.1"
     },
     "engines": {
-        "node": "14.x"
+        "node": "24.x"
+    },
+    "overrides": {
+        "xo": {
+            "eslint-plugin-ava": "13.0.0"
+        }
     },
     "mocha": {
         "check-leaks": true,

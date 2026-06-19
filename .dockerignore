@@ -1,0 +1,15 @@
+.git
+.github
+.idea
+.vscode
+coverage
+node_modules
+test
+npm-debug.log
+*.log
+.DS_Store
+.env
+.env.*
+config/_files.yml
+config/*.bak
+public/cdn
