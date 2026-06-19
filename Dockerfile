@@ -2,6 +2,10 @@ FROM node:24-slim
 
 ENV NODE_ENV=production
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN mkdir /app && chown node:node /app
 
 WORKDIR /app
