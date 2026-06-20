@@ -4,7 +4,6 @@ const path = require('path');
 const express = require('express');
 const mime = require('mime');
 const semver = require('semver');
-const { v4: uuidv4 } = require('uuid');
 
 // constants
 const ENV = process.env;
@@ -35,7 +34,6 @@ const staticify = require('staticify')(PUBLIC_DIR, {
 });
 
 const config = require('./config');
-const CSP = require('./config/helmet-csp');
 const helpers = require('./lib/helpers');
 const routes = require('./routes');
 
@@ -78,17 +76,11 @@ app.use(staticify.middleware);
 app.use(favicon(path.join(PUBLIC_DIR, config.app.favicon.uri), '7d'));
 
 app.use((req, res, next) => {
-    // Create a nonce for use with CSP;
-    // get a random UUID and convert it to a base64 string
-    const nonce = Buffer.from(uuidv4(), 'utf-8').toString('base64');
-
     // make config available in routes
     req.config = config;
 
     // custom headers
     res.setHeader('Cache-Control', 'public, max-age=300');
-
-    res.locals.nonce = nonce;
 
     next();
 });
@@ -96,6 +88,7 @@ app.use((req, res, next) => {
 app.use(express.static(PUBLIC_DIR, STATIC_OPTS));
 
 app.use(helmet({
+    contentSecurityPolicy: false,
     dnsPrefetchControl: false,
     frameguard: {
         action: 'deny'
@@ -110,8 +103,6 @@ app.use(helmet.hsts({
 }));
 
 app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }));
-
-app.use(helmet.contentSecurityPolicy({ directives: CSP }));
 
 // locals
 app.locals.helpers = helpers;

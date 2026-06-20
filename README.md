@@ -119,10 +119,6 @@ The Express.js app configuration.
 
 Contains the CDN files we host.The SRI values are updated by running `npm run integrity`.
 
-#### `config/helmet-csp.js`
-
-Our CSP config using <https://github.com/helmetjs/csp>
-
 ### Updating Bootstrap/Bootlint/Bootswatch
 
 Replace `package` by the package you want to update and `version` with its version in the following commands:
